@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en-ru">
+<div class="col s12 l3 m3" th:fragment="menu_admin">
+    <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">open_in_new</i>CRUD</div>
+            <div class="collapsible-body">
+                <div class="collection" >
+                    <a href="#/create" class="collection-item">Create</a>
+                    <a href="#/update" class="collection-item">Update</a>
+                    <a href="#/delete" class="collection-item">Delete</a>
+                    <a href="#/view" class="collection-item">Preview</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">info</i>Info</div>
+            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+        </li>
+    </ul>
+</div>
+</html>
