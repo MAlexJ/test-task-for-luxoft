@@ -1,15 +1,27 @@
 'use strict';
 
-// ************  Home Page  ******************
-myApp.controller('homeController', function ($scope, $http) {
+// ************  analytics Page  ******************
+myApp.controller('analyticsController', function ($scope, $http) {
+    console.log("analytics controller");
 });
 
-// ************  Articles Page  ******************
-myApp.controller('articlesController', function ($scope, $http) {
+// ************  users Page  ******************
+myApp.controller('usersController', function ($scope, $http) {
+    console.log("users Controller");
 });
 
 // ************  Info Page  ******************
 myApp.controller('infoController', function ($scope, $http) {
+});
+
+// ************  SignIn Page  ******************
+myApp.controller('signInController', function ($scope, $http) {
+    console.log("signInController");
+});
+
+// ************  SignUp Page  ******************
+myApp.controller('signUpController', function ($scope, $http) {
+    console.log("signUpController");
 });
 
 

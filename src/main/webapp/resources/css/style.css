@@ -15,3 +15,12 @@ a {
 .pad-nav-bar{
     padding: 0;
 }
+
+.logo-nav{
+    width: 150px;
+    padding-top: 15px;
+}
+
+.nav-button-sign{
+    padding-left: 20px;
+}

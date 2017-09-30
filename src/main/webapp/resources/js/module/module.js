@@ -1,6 +1,8 @@
 'use strict';
 
-var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider) {
+var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.hashPrefix('');
 
     // Mobile nav bar
     $('.button-collapse').sideNav({
@@ -15,18 +17,18 @@ var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider
         }
     );
 
-    // ************  Home Page  ******************
-    $routeProvider.when('/home',
+    // ************  analytics Page  ******************
+    $routeProvider.when('/analytics',
         {
-            templateUrl: './home.html',
-            controller: 'homeController'
+            templateUrl: './analytics.html',
+            controller: 'analyticsController'
         });
 
-    // ************  Articles Page  ******************
-    $routeProvider.when('/articles',
+    // ************  users Page  ******************
+    $routeProvider.when('/users',
         {
-            templateUrl: './articles.html',
-            controller: 'articlesController'
+            templateUrl: './users.html',
+            controller: 'usersController'
         });
 
     // ************  Info Page  ******************
@@ -36,11 +38,28 @@ var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider
             controller: 'infoController'
         });
 
+    // ************  SignIn Page  ******************
+    $routeProvider.when('/signin',
+        {
+            templateUrl: './signin.html',
+            controller: 'signInController'
+        });
+
+    // ************  SignUp Page  ******************
+    $routeProvider.when('/signup',
+        {
+            templateUrl: './signup.html',
+            controller: 'signUpController'
+        });
+
+
     // ************  Default Page  ******************
-    $routeProvider.otherwise({redirectTo: '/home'});
+    $routeProvider.otherwise({redirectTo: '/analytics'});
 });
 
-var myAdmin = angular.module('myAdmin', ["ngRoute"]).config(function ($routeProvider) {
+var myAdmin = angular.module('myAdmin', ["ngRoute"]).config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.hashPrefix('');
 
     // ************  Home Page  ******************
     $routeProvider.when('/home',
