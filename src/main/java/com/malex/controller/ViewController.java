@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ViewController {
 
+	org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ViewController.class);
+
+
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String get() {
+
+		log.debug(">>>>>>>>>>");
+
 		return "index";
 	}
 

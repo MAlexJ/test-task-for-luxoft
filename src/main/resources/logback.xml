@@ -9,7 +9,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${CATALINA_HOME}/logs/store-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${CATALINA_HOME}/logs/web_app_log_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
