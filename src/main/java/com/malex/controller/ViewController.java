@@ -29,6 +29,22 @@ public class ViewController {
 	}
 
 	/**
+	 * @return profile page
+	 */
+	@RequestMapping(path = "/profile", method = RequestMethod.GET)
+	public String profile() {
+		return "views/profile";
+	}
+
+	/**
+	 * @return status page
+	 */
+	@RequestMapping(path = "/status", method = RequestMethod.GET)
+	public String status() {
+		return "views/status";
+	}
+
+	/**
 	 * @return info page
 	 */
 	@RequestMapping(path = "/info", method = RequestMethod.GET)

@@ -1,8 +1,20 @@
 'use strict';
 
-var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider, $locationProvider) {
+var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider, $locationProvider, $logProvider) {
+
+    // debug level
+    $logProvider.debugEnabled(true);
 
     $locationProvider.hashPrefix('');
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false // Close upon selecting a date,
+    });
 
     // Mobile nav bar
     $('.button-collapse').sideNav({
@@ -17,18 +29,33 @@ var myApp = angular.module('myApp', ["ngRoute"]).config(function ($routeProvider
         }
     );
 
-    // ************  analytics Page  ******************
+    // ************  Analytics Page  ******************
     $routeProvider.when('/analytics',
         {
             templateUrl: './analytics.html',
             controller: 'analyticsController'
         });
 
-    // ************  users Page  ******************
+    // ************  Users Page  ******************
     $routeProvider.when('/users',
         {
             templateUrl: './users.html',
             controller: 'usersController'
+        });
+
+    // ************  Profile Page  ******************
+    $routeProvider.when('/profile',
+        {
+            templateUrl: './profile.html',
+            controller: 'profileController'
+        });
+
+
+    // ************  Status Page  ******************
+    $routeProvider.when('/status',
+        {
+            templateUrl: './status.html',
+            controller: 'statusController'
         });
 
     // ************  Info Page  ******************
