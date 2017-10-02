@@ -29,21 +29,19 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 	public long save(UserDTO user) throws RepositoryException {
 
 		int executeUpdate = entityManager
-				  .createNativeQuery("INSERT INTO users (dateofbirth, dateofregistration, email, fullname, language, occupation, password) VALUES (?,?,?,?,?,?,?)")
-				  // dateofbirth
-				  .setParameter(1, user.getDateOfBirth())
+				  .createNativeQuery("INSERT INTO users (dateofregistration, email, fullname, language, occupation, password) VALUES (?,?,?,?,?,?)")
 				  // dateofregistration
-				  .setParameter(2, user.getDateOfRegistration())
+				  .setParameter(1, user.getDateOfRegistration())
 				  // email
-				  .setParameter(3, user.getEmail())
+				  .setParameter(2, user.getEmail())
 				  // fullname
-				  .setParameter(4, user.getFullName())
+				  .setParameter(3, user.getFullName())
 				  // language
-				  .setParameter(5, user.getLanguage())
+				  .setParameter(4, user.getLanguage())
 				  // occupation
-				  .setParameter(6, user.getOccupation())
+				  .setParameter(5, user.getOccupation())
 				  // password
-				  .setParameter(7, user.getPassword())
+				  .setParameter(6, user.getPassword())
 				  .executeUpdate();
 
 		if (executeUpdate < 1) {
@@ -87,12 +85,12 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
 		if (StringUtils.isNotBlank(fullName)) {
 			resultList = entityManager
-					  .createNativeQuery("SELECT id, fullname, email, dateofbirth, language, occupation FROM users WHERE fullname ILIKE ?")
+					  .createNativeQuery("SELECT id, fullname, email, language, occupation FROM users WHERE fullname ILIKE ?")
 					  .setParameter(1, "%" + fullName + "%")
 					  .getResultList();
 		} else {
 			resultList = entityManager
-					  .createNativeQuery("SELECT id, fullname, email, dateofbirth, language, occupation FROM users")
+					  .createNativeQuery("SELECT id, fullname, email, language, occupation FROM users")
 					  .getResultList();
 		}
 
@@ -109,12 +107,10 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 			user.setFullName((String) ob[1]);
 			// [2] email,
 			user.setEmail((String) ob[2]);
-			// [3] dateofbirth => age
-			user.setAge(30);
-			// [4] 'language',
-			user.setLanguage((String) ob[4]);
-			// [5] occupation
-			user.setOccupation((String) ob[5]);
+			// [3] 'language',
+			user.setLanguage((String) ob[3]);
+			// [4] occupation
+			user.setOccupation((String) ob[4]);
 
 			result.add(user);
 		}

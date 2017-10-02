@@ -32,20 +32,6 @@ public class UserDTO {
 
 	@Setter
 	@Getter
-	private int age;
-
-	@Setter
-	@Getter
-	@InvisibleJson
-	private Date dateOfBirth;
-
-	@Setter
-	@Getter
-	@InvisibleJson
-	private String dateBirth;
-
-	@Setter
-	@Getter
 	@InvisibleJson
 	private Date dateOfRegistration;
 

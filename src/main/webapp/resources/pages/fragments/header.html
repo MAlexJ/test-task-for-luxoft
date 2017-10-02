@@ -40,8 +40,19 @@
                 <li style="padding: 0"><a ng-show="isLogin" href="#/profile">Your profile</a></li>
                 <li style="padding: 0"><a ng-show="isLogin" href="#/status">Your status</a></li>
                 <li style="padding: 0"><a class="waves-effect waves-teal" href="#/info">Info</a></li>
-                <li style="padding: 0"><a class="waves-effect waves-teal" href="#/signin">Sign in</a></li>
-                <li style="padding: 0"><a class="waves-effect waves-teal" href="#/signup">Sign up</a></li>
+
+                <li ng-hide="isLogin" style="padding: 0">
+                    <a class="waves-effect waves-teal" href="#/signin">Sign in</a>
+                </li>
+
+                <li ng-hide="isLogin" style="padding: 0">
+                    <a class="waves-effect waves-teal" href="#/signup">Sign up</a>
+                </li>
+
+                <!--Logout-->
+                <li ng-show="isLogin" style="padding: 0">
+                    <a ng-click="signout()" class="waves-effect waves-teal">Sign out</a>
+                </li>
             </ul>
         </div>
     </div>

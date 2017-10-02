@@ -41,11 +41,6 @@ public class User extends BaseEntity {
 	@Setter
 	@Getter
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateOfBirth;
-
-	@Setter
-	@Getter
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfRegistration;
 
 }

@@ -196,13 +196,6 @@ public class RestController {
 		if (!StringUtils.isNotBlank(userDTO.getLanguage())) {
 			throw new WebException("The parameter: language should be in the request.");
 		}
-
-		// Check dateofbirth
-		if (!StringUtils.isNotBlank(userDTO.getDateBirth())) {
-			throw new WebException("The parameter: dateBirth should be in the request.");
-		} else {
-			System.out.println(">>>>>> userDTO.getDateBirth(): " + userDTO.getDateBirth());
-		}
 	}
 
 

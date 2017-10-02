@@ -22,8 +22,6 @@ public class UserServiceImpl implements UserService {
 		// #1 check user
 		userDao.check(user.getEmail());
 
-		user.setDateOfBirth(new Date());
-
 		user.setDateOfRegistration(new Date());
 
 		// #2 save user
