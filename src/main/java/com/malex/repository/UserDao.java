@@ -7,9 +7,18 @@ import java.util.List;
 
 public interface UserDao {
 
-	void save(UserDTO user) throws RepositoryException;
+	long save(UserDTO user) throws RepositoryException;
 
 	boolean check(String email) throws RepositoryException;
 
 	List<UserDTO> getAllUsers(String fullName);
+
+	void checkEmailInDB(String email) throws RepositoryException;
+
+	UserDTO getUserWithPassword(String email, String password) throws RepositoryException;
+
+	UserDTO getUserById(long id) throws RepositoryException;
+
+	void updateUser(UserDTO userDTO) throws RepositoryException;
+
 }

@@ -1,6 +1,8 @@
 <div class="container container-first">
     <div class="row">
-        <form class="col s12">
+
+        <!--before login-->
+        <form ng-hide="isLogin" class="col s12">
 
             <div class="row">
                 <div class="input-field col s12 l6 offset-l3">
@@ -11,7 +13,7 @@
             <!--Full Name-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
-                    <input id="fullName" type="text" class="validate"/>
+                    <input ng-model="user.fullName" id="fullName" type="text" class="validate"/>
                     <label for="fullName">* Full Name</label>
                 </div>
             </div>
@@ -19,7 +21,7 @@
             <!--Email-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
-                    <input id="email" type="email" class="validate"/>
+                    <input ng-model="user.email" id="email" type="email" class="validate"/>
                     <label for="email">* Email</label>
                 </div>
             </div>
@@ -27,7 +29,7 @@
             <!--Password-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
-                    <input id="password" type="password" class="validate"/>
+                    <input ng-model="user.password" id="password" type="password" class="validate"/>
                     <label for="password">* Password</label>
                 </div>
             </div>
@@ -35,7 +37,7 @@
             <!--Language-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
-                    <input id="language" type="text" class="validate" required=""/>
+                    <input ng-model="user.language" id="language" type="text" class="validate" required=""/>
                     <label for="language">* Language</label>
                 </div>
             </div>
@@ -44,19 +46,19 @@
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
                     <label for="dateU" style="position: initial;">* Date of Birth</label>
-                    <input id="dateU" type="date" class="datepicker"/>
+                    <input ng-model="user.dateBirth" id="dateU" type="date" class="datepicker"/>
                 </div>
             </div>
 
             <!--Occupation-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
-                    <input id="occupation" type="text" class="validate"/>
-                    <label for="email">Occupation</label>
+                    <input ng-model="user.occupation" id="occupation" type="text" class="validate"/>
+                    <label for="occupation">Occupation</label>
                 </div>
             </div>
 
-            <!--Occupation-->
+            <!--Hint-->
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4">
                     <span style="color: red">Fields marked as * are mandatory fields!</span>
@@ -65,10 +67,25 @@
 
             <div class="row">
                 <div class="input-field col s12 l4 offset-l4 center">
-                    <a class="waves-effect waves-light btn">Sign Up</a>
+                    <!--Button-->
+                    <a ng-hide="progressBar" class="waves-effect waves-light btn" ng-click="signUp(user)">Sign Up</a>
+                    <!--Progress Bar-->
+                    <div ng-show="progressBar" class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <!--after login-->
+        <form ng-show="isLogin" class="col s12">
+            <div class="row">
+                <div class="input-field col s12 l4 offset-l4 center">
+                    You were successfully logged in to the application
                 </div>
             </div>
-
         </form>
+
     </div>
 </div>

@@ -42,6 +42,11 @@ public class UserDTO {
 	@Setter
 	@Getter
 	@InvisibleJson
+	private String dateBirth;
+
+	@Setter
+	@Getter
+	@InvisibleJson
 	private Date dateOfRegistration;
 
 	@Setter

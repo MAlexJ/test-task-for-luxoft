@@ -6,10 +6,10 @@
             <p>This tab displays all users of the application.</p>
 
 
-            <!--Full Name-->
+            <!--searchName-->
             <div class="row">
                 <div class="input-field col s10 l4">
-                    <input id="search" type="text" class="validate"/>
+                    <input ng-model="searchName" id="search" type="text" class="validate"/>
                     <label for='search'>Search by name</label>
                 </div>
             </div>
@@ -17,7 +17,13 @@
             <div class="row">
                 <div class="input-field col s12"><b>User table</b></div>
             </div>
-            <table class="responsive-table highlight bordered">
+
+            <!--Progress Bar-->
+            <div class="progress" ng-show="progressBar">
+                <div class="indeterminate"></div>
+            </div>
+
+            <table ng-hide="progressBar" class="responsive-table highlight bordered">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -30,13 +36,13 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Eclair Ass</td>
-                    <td>ww@ww.com</td>
-                    <td>23</td>
-                    <td>English</td>
-                    <td>Teacher</td>
+                <tr ng-repeat="user in users | customSearchFilter:searchName">
+                    <td>{{user.id}}</td>
+                    <td>{{user.fullName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.language}}</td>
+                    <td>{{user.occupation}}</td>
                 </tr>
 
                 </tbody>

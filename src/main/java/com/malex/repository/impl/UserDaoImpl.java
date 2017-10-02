@@ -14,8 +14,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.malex.constants.Constant.USER_ALREADY_EXISTS_IN_THE_DATABASE;
-import static com.malex.constants.Constant.USER_INSERT_ERROR;
+import static com.malex.constants.Constant.*;
 
 @Repository
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
@@ -27,7 +26,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
 	@Override
 	@Transactional
-	public void save(UserDTO user) throws RepositoryException {
+	public long save(UserDTO user) throws RepositoryException {
 
 		int executeUpdate = entityManager
 				  .createNativeQuery("INSERT INTO users (dateofbirth, dateofregistration, email, fullname, language, occupation, password) VALUES (?,?,?,?,?,?,?)")
@@ -51,6 +50,15 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 			LOG.error(USER_INSERT_ERROR);
 			throw new RepositoryException(USER_INSERT_ERROR);
 		}
+
+		List<Object[]> resultList = entityManager
+				  .createNativeQuery("SELECT id, fullname FROM users WHERE email=?")
+				  .setParameter(1, user.getEmail())
+				  .getResultList();
+
+		Object[] ob = resultList.get(0);
+		return ((BigInteger) ob[0]).longValue();
+
 	}
 
 	@Override
@@ -112,6 +120,95 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 		}
 
 		return result;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public void checkEmailInDB(String email) throws RepositoryException {
+
+		List resultList = entityManager
+				  .createNativeQuery("SELECT id FROM users WHERE email=?")
+				  .setParameter(1, email)
+				  .getResultList();
+
+		if (resultList.isEmpty()) {
+			throw new RepositoryException(USER_DOES_NOT_EXIST);
+		}
+
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserDTO getUserWithPassword(String email, String password) throws RepositoryException {
+
+		List<Object[]> resultList = entityManager
+				  .createNativeQuery("SELECT id, fullname FROM users WHERE email=? AND password=?")
+				  .setParameter(1, email)
+				  .setParameter(2, password)
+				  .getResultList();
+
+		if (resultList.isEmpty()) {
+			throw new RepositoryException(USER_WRONG_PASSWORD);
+		}
+
+		Object[] ob = resultList.get(0);
+
+		UserDTO userDTO = new UserDTO();
+
+		userDTO.setId(((BigInteger) ob[0]).longValue());
+		userDTO.setFullName((String) ob[1]);
+
+		return userDTO;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserDTO getUserById(long id) throws RepositoryException {
+
+		List<Object[]> resultList = entityManager
+				  .createNativeQuery("SELECT id, fullname, email, language, occupation FROM users WHERE id = ?")
+				  .setParameter(1, id)
+				  .getResultList();
+
+		if (resultList.isEmpty()) {
+			throw new RepositoryException(USER_DOES_NOT_EXIST);
+		}
+
+		Object[] ob = resultList.get(0);
+
+		UserDTO user = new UserDTO();
+
+		// [0] id,
+		user.setId(((BigInteger) ob[0]).longValue());
+		// [1] fullname,
+		user.setFullName((String) ob[1]);
+		// [2] email,
+		user.setEmail((String) ob[2]);
+		// [3] 'language',
+		user.setLanguage((String) ob[3]);
+		// [4] occupation
+		user.setOccupation((String) ob[4]);
+
+		return user;
+	}
+
+	@Override
+	@Transactional
+	public void updateUser(UserDTO userDTO) throws RepositoryException {
+
+		int executeUpdate = entityManager
+				  .createNativeQuery("UPDATE users SET fullname=?, email=?, language=?, occupation=? WHERE id=?")
+				  .setParameter(1, userDTO.getFullName())
+				  .setParameter(2, userDTO.getEmail())
+				  .setParameter(3, userDTO.getLanguage())
+				  .setParameter(4, userDTO.getOccupation())
+				  .setParameter(5, userDTO.getId())
+				  .executeUpdate();
+
+		if (executeUpdate < 1) {
+			LOG.error(USER_ERROR_UPDATED);
+			throw new RepositoryException(USER_ERROR_UPDATED);
+		}
 	}
 
 }

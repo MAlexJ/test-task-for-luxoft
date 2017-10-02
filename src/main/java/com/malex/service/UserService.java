@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface UserService {
 
-	void createNewUsers(UserDTO user) throws RepositoryException;
+	long createNewUsers(UserDTO user) throws RepositoryException;
 
 	List<UserDTO> getAllUsers(String fullName);
 
+	UserDTO login(String email, String password) throws RepositoryException;
+
+	UserDTO getUserById(long id) throws RepositoryException;
+
+	void updateUser(UserDTO userDTO) throws RepositoryException;
 }
