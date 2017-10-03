@@ -23,4 +23,8 @@ public class UserHistoryDTO {
 	@Getter
 	private Date date;
 
+	@Setter
+	@Getter
+	private String lastDate;
+
 }

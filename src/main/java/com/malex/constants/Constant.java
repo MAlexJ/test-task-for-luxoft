@@ -12,5 +12,6 @@ public class Constant {
 	public static final String USER_SUCCESSFULLY_UPDATED = "User profile was successfully updated.";
 	public static final String USER_ERROR_UPDATED = "An error occurred while updating the user profile.";
 	public static final String USER_SAVING_USER_HISTORY = "Error saving user history.";
+	public static final String THERE_IS_NO_RECORD_IN_THE_DATABASE = "There is no record in the database.";
 
 }

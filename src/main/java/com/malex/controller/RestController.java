@@ -3,7 +3,9 @@ package com.malex.controller;
 import com.malex.exception.RepositoryException;
 import com.malex.exception.WebException;
 import com.malex.model.dto.UserDTO;
+import com.malex.model.dto.UserHistoryDTO;
 import com.malex.model.response.UserResponse;
+import com.malex.service.UserHistoryService;
 import com.malex.service.UserService;
 import com.malex.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +21,9 @@ public class RestController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserHistoryService userHistoryService;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public
@@ -55,6 +60,7 @@ public class RestController {
 		return JsonUtil.buildGson().toJson(response);
 	}
 
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public
 	@ResponseBody
@@ -87,6 +93,7 @@ public class RestController {
 		response.setStatus(true);
 		return JsonUtil.buildGson().toJson(response);
 	}
+
 
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public
@@ -139,6 +146,7 @@ public class RestController {
 		return JsonUtil.buildGson().toJson(response);
 	}
 
+
 	@RequestMapping(value = "/getUserById", method = RequestMethod.GET)
 	public
 	@ResponseBody
@@ -167,6 +175,72 @@ public class RestController {
 		response.setUser(userDTO);
 		response.setStatus(true);
 		return JsonUtil.buildGson().toJson(response);
+	}
+
+
+	@RequestMapping(value = "/getStatusById", method = RequestMethod.GET)
+	public
+	@ResponseBody
+	String getStatusById(@RequestParam long id) {
+
+		UserResponse response = new UserResponse();
+
+		try {
+
+			checkId(id);
+
+		} catch (WebException ex) {
+			response.setMessage(ex.getMessage());
+			response.setStatus(false);
+			return JsonUtil.buildGson().toJson(response);
+		}
+
+		try {
+
+			UserHistoryDTO history = userHistoryService.getStatusById(id);
+			response.setHistory(history);
+
+		} catch (RepositoryException ex) {
+			response.setMessage(ex.getMessage());
+			response.setStatus(false);
+			return JsonUtil.buildGson().toJson(response);
+		}
+
+		response.setStatus(true);
+		return JsonUtil.buildGson().toJson(response);
+	}
+
+	@RequestMapping(value = "/changeStatus", method = RequestMethod.POST)
+	public
+	@ResponseBody
+	String changeStatus(@RequestBody UserHistoryDTO historyDTO) {
+
+		UserResponse response = new UserResponse();
+
+		try {
+
+			UserHistoryDTO history = userHistoryService.changeStatus(historyDTO.isStatus(), historyDTO.getUserId());
+			response.setHistory(history);
+
+		} catch (RepositoryException ex) {
+			response.setMessage(ex.getMessage());
+			response.setStatus(false);
+			return JsonUtil.buildGson().toJson(response);
+		}
+
+		response.setMessage("User status has been changed.");
+		response.setStatus(true);
+		return JsonUtil.buildGson().toJson(response);
+	}
+
+
+	/**
+	 * Check user ID
+	 */
+	private void checkId(long id) throws WebException {
+		if (id < 1) {
+			throw new WebException("The parameter: id should be in the request.");
+		}
 	}
 
 
