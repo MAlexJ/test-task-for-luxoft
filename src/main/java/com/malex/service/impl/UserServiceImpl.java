@@ -3,6 +3,7 @@ package com.malex.service.impl;
 import com.malex.exception.RepositoryException;
 import com.malex.model.dto.UserDTO;
 import com.malex.repository.UserDao;
+import com.malex.repository.UserHistoryDao;
 import com.malex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private UserHistoryDao userHistoryDao;
+
 	@Override
 	public long createNewUsers(UserDTO user) throws RepositoryException {
 
@@ -25,7 +29,12 @@ public class UserServiceImpl implements UserService {
 		user.setDateOfRegistration(new Date());
 
 		// #2 save user
-		return userDao.save(user);
+		long userID = userDao.save(user);
+
+		// #3 create a new history
+		userHistoryDao.afterSignUp(userID);
+
+		return userID;
 
 	}
 
